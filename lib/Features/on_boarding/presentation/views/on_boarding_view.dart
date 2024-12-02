@@ -1,6 +1,7 @@
 import 'package:e_commerce/Features/on_boarding/presentation/views/widgets/on_boarding_view_body.dart';
 import 'package:flutter/material.dart';
 
+//on board view
 class OnBoardingView extends StatelessWidget {
   const OnBoardingView({super.key});
 
