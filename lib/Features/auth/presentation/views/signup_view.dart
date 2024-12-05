@@ -1,4 +1,5 @@
 import 'package:e_commerce/Features/auth/presentation/cubits/signUp_cubit/sign_up_cubit.dart';
+import 'package:e_commerce/Features/auth/presentation/views/login_view.dart';
 import 'package:e_commerce/Features/auth/presentation/views/widgets/signup_view_body.dart';
 
 import 'package:e_commerce/core/widgets/Custom_app_bar.dart';
@@ -24,7 +25,9 @@ class SignupView extends StatelessWidget {
         body: Builder(builder: (context) {
           return BlocConsumer<SignUpCubit, SignUpState>(
             listener: (context, state) {
-              if (state is SignUpSuccess) {}
+              if (state is SignUpSuccess) {
+                Navigator.pushReplacementNamed(context, signInView.routeName);
+              }
               if (state is SignUpfailure) {
                 showCoolSnackBar(context, state.message);
               }
