@@ -25,9 +25,9 @@ class AuthReposEmpl extends AuthRepo {
     try {
       user = await firebaseAuthService.createUserWithEmailAndPassword(
           email: email, password: password);
-      var userEntitu = UserEntity(user.uid, email: email, name: name);
-      await addUserData(user: userEntitu);
-      return right(userEntitu);
+      var userEntity = UserEntity(user.uid, email: email, name: name);
+      await addUserData(user: userEntity);
+      return right(userEntity);
     } on CustomException catch (e) {
       await DeleteUser(user);
       return left(ServerFailure(e.message));
@@ -50,7 +50,9 @@ class AuthReposEmpl extends AuthRepo {
       var user = await firebaseAuthService.signInWithEmailAndPassword(
           email: email, password: password);
 
-      return right(UserModel.fromFirebaseUser(user));
+      var userEntity = await getUserData(id: user.uid);
+
+      return right(userEntity);
     } on CustomException catch (e) {
       return left(ServerFailure(e.message));
     } catch (e) {
@@ -77,6 +79,15 @@ class AuthReposEmpl extends AuthRepo {
   @override
   Future<void> addUserData({required UserEntity user}) async {
     await databaseService.addData(
-        path: dataEndPoints.addUserData, data: user.tomap());
+        path: dataEndPoints.addUserData,
+        data: user.tomap(),
+        documentId: user.id);
+  }
+
+  @override
+  Future<UserEntity> getUserData({required String id}) async {
+    var userData =
+        await databaseService.getData(path: dataEndPoints.getUserData, id: id);
+    return UserModel.fromJson(userData);
   }
 }
