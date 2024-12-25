@@ -43,10 +43,10 @@ class Fruit_hub extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: S.delegate.supportedLocales,
-      locale: const Locale("ar"),
+      locale: const Locale("en"),
       onGenerateRoute: onGenerateRoute,
       home: const SplashView(),
     );
   }
 }
-        // This is the theme of your application.
+// This is the theme of your application.

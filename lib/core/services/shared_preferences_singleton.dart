@@ -16,4 +16,14 @@ class SharedPreferencesSingleton {
   static bool getBool(String key) {
     return _instance.getBool(key) ?? false;
   }
+
+  static Future<bool> setBoolForTakeInfoPage(
+      {required String key, required bool value}) async {
+    await _instance.setBool(key, value);
+    return value;
+  }
+
+  static bool getBoolForTakeInfoPage(String key) {
+    return _instance.getBool(key) ?? false;
+  }
 }

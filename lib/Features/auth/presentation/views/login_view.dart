@@ -1,3 +1,4 @@
+import 'package:e_commerce/Features/Body/presentation/views/take_info_view.dart';
 import 'package:e_commerce/Features/auth/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:e_commerce/Features/auth/presentation/views/widgets/Login_view_body.dart';
 
@@ -22,7 +23,9 @@ class signInView extends StatelessWidget {
         body: Builder(builder: (context) {
           return BlocConsumer<SignInCubit, SignInState>(
             listener: (context, state) {
-              if (state is SignInSuccess) {}
+              if (state is SignInSuccess) {
+                Navigator.pushReplacementNamed(context, TakeInfoView.routeName);
+              }
               if (state is SignInFailure) {
                 showCoolSnackBar(context, state.message);
               }
