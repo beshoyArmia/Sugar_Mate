@@ -22,7 +22,7 @@ class _TakeInfoViewState extends State<TakeInfoView> {
   Widget build(BuildContext context) {
     bool seen =
         SharedPreferencesSingleton.getBoolForTakeInfoPage(isUserGivenInfoKEY);
-    if (seen) {
+    if (seen == false) {
       //Navigator.pushReplacementNamed(context, LoginView.routeName);
       return const HomeView();
     } else {

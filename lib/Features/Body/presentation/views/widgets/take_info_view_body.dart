@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/Features/Body/presentation/views/home_view.dart';
+import 'package:e_commerce/Features/Body/presentation/views/widgets/next_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../../../../core/constant.dart';
 import '../../../../../core/services/shared_preferences_singleton.dart';
@@ -119,15 +122,8 @@ class _TakeInfoViewBodyState extends State<TakeInfoViewBody> {
                 const SizedBox(height: 20),
                 if (bmi > 0) _buildBMIGauge(),
                 if (bmi > 0)
-                  CustomButton(
-                      text: "Next",
-                      onPressed: () {
-                        SharedPreferencesSingleton.setBoolForTakeInfoPage(
-                            key: isUserGivenInfoKEY, value: true);
-
-                        Navigator.pushReplacementNamed(
-                            context, HomeView.routeName);
-                      }),
+                  NextButton(
+                      context: context, bmi: bmi, dailyCalories: dailyCalories),
               ],
             ),
           ),
@@ -223,7 +219,8 @@ class _TakeInfoViewBodyState extends State<TakeInfoViewBody> {
             minimum: 10,
             maximum: 40,
             ranges: <GaugeRange>[
-              _buildGaugeRange(10, 16, Colors.red, 'Underweight'),
+              _buildGaugeRange(10, 16, const Color.fromARGB(255, 234, 255, 0),
+                  'Underweight'),
               _buildGaugeRange(16, 25, Colors.green, 'Normal'),
               _buildGaugeRange(25, 30, Colors.orange, 'Overweight'),
               _buildGaugeRange(30, 40, Colors.red, 'Obesity'),
